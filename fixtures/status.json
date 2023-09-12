@@ -1,0 +1,23 @@
+[
+    {
+        "model": "tribeapi.tag",
+        "pk": 1,
+        "fields": {
+            "type": "In Progress..."
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 2,
+        "fields": {
+            "type": "Completed!"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 3,
+        "fields": {
+            "type": "Pending Volunteer Assignment..."
+        }
+    }
+]

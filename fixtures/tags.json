@@ -1,0 +1,86 @@
+[
+    {
+        "model": "tribeapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "#SipSipHooray!"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "#FrightNight!"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "#CapsOff2U!"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 4,
+        "fields": {
+            "label": "#BabyGotSnacks"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 5,
+        "fields": {
+            "label": "#BrideTribe"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 6,
+        "fields": {
+            "label": "#BDAYBASH"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 7,
+        "fields": {
+            "label": "#MidnightMagic"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 8,
+        "fields": {
+            "label": "#DanceTillDawn"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 9,
+        "fields": {
+            "label": "#GoodVibesOnly"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 10,
+        "fields": {
+            "label": "#EatDrinkAndBeMerry"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 11,
+        "fields": {
+            "label": "#TotallyTubularTime!"
+        }
+    },
+    {
+        "model": "tribeapi.tag",
+        "pk": 12,
+        "fields": {
+            "label": "#TheBombDotCom"
+        }
+    }
+]
