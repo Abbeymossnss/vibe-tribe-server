@@ -1,0 +1,14 @@
+[
+    {
+        "model": "tribeapi.helpticket",
+        "pk": 1,
+        "fields": {
+            "event": 1,
+            "creator": 4,
+            "volunteer": 2,
+            "issue": "UM, so I didn't realize but my friend is actually turning 21, and I HAVE NO BOOZE. I desperately need someone to grab me 5 bottles of gin, and limes for RICKEYS.",
+            "status": 2,
+            "title": "Prohibition Era Problem"
+        }
+    } 
+]

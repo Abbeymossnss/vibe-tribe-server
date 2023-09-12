@@ -1,0 +1,44 @@
+[
+    {
+        "model": "tribeapi.event",
+        "pk": 1,
+        "fields": {
+            
+            "host": 4,
+            "date": "2023-08-29",
+            "time": "14:30:45",
+            "name": "Roaring Twenties: 20th Birthday Party!",
+            "details":"My bestest friend ever is turning twenty, and I'm going all out! Picture this: Dripping in diamonds, bathing in pearls, tassles, NA Gin, cuz she's 20. DUH (tehe)",
+            "tags": [1, 8, 12, 11],
+            "location": "1126 Ardee Ave, Nashville TN, 37216"
+    }
+},
+    {
+        "model": "tribeapi.event",
+        "pk": 2,
+        "fields": {
+            
+            "host": 3,
+            "date": "2023-10-29",
+            "time": "20:00:00",
+            "name": "Are You Afraid Of The Dach?",
+            "details":"My dachshund, Nadja is turning 2 and I can't wait to throw her a halloween pup party.",
+            "tags": [9,11,12],
+            "location": "2507 Cooper Lane, Nashville TN, 37216"
+        }
+    },
+    {
+        "model": "tribeapi.event",
+        "pk": 3,
+        "fields": {
+            
+            "host": 1,
+            "date": "2024-8-31",
+            "time": "19:00:00",
+            "name": "Golden Gal's Golden Birthday",
+            "details": "I'm turning 31 on the 31st and there's no way I'm not gonna throw my biggest rager yet! I just wish Betty White could be there.",
+            "tags": [1,7,8,6],
+            "location": "Golden Pony, 757 Douglas Ave, Nashville TN,37207"
+        }
+    }
+]
