@@ -1,0 +1,11 @@
+{
+    "python.linting.pylintArgs": [
+    "--load-plugins=pylint_django",
+    "--django-settings-module=vibetribe.settings",
+],
+"[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+},
+"python.formatting.provider": "none",
+
+}
