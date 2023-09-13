@@ -12,6 +12,7 @@ router.register(r'events', EventView, 'event')
 
 
 
+
 urlpatterns = [
     path('register', register_user),
     path('login', login_user),

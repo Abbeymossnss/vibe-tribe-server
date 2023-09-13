@@ -23,13 +23,13 @@ class EventView(ViewSet):
         #    Handle GET requests to get all events
         #  Returns: Response -- JSON serialized list of events.
 
-        events = []
 
         if request.auth.user.is_staff:
             events = Event.objects.all()
 
         else:
-            events = Event.objects.filter(tribe_User=request.auth.user)
+            events = Event.objects.filter(host=request.auth.user)
+            
 
         serialized = EventSerializer(events, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
