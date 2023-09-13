@@ -4,7 +4,7 @@ from django.db import models
 class Event(models.Model):
     name = models.CharField(max_length=50)
     details = models.CharField(max_length=1000)
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=50,null=True, blank=True)
     date = models.DateField()
     time = models.TimeField()
     host = models.ForeignKey("TribeUser", null=True, blank=True,
