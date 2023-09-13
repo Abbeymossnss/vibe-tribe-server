@@ -19,6 +19,22 @@ class EventView(ViewSet):
 
     # return Response(serializer.data)
 
+    def destroy(self, request, pk=None):
+        # handle delete requests for events
+        # authorize only users whos is_staff=false.
+        # return no response, with 204 status code.
+
+        # check if user is staff.
+        if request.auth.user.is_staff:
+            return Response({"error": "You are not authorized to be a party killer."}, status=status.HTTP_403_FORBIDDEN)
+
+        # now delete the event! and return a 204 no response
+        event = Event.objects.get(pk=pk)
+        event.delete()
+
+        """Returns: Response:None. with 204 status code"""
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
     def list(self, request):
         #    Handle GET requests to get all events
         #  Returns: Response -- JSON serialized list of events.
