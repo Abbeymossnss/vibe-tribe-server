@@ -4,11 +4,12 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from tribeapi.views import EventView
+from tribeapi.views import TagView
 from tribeapi.views import register_user, login_user
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'events', EventView, 'event')
-
+router.register(r'tags', TagView, 'tag')
 
 
 
@@ -18,7 +19,6 @@ urlpatterns = [
     path('login', login_user),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('tags/',views.tags_view, name='tags'),
 ]
 
 # # Requests to http://localhost:8000/register will be routed to the register_user function
