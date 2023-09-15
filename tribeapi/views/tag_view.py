@@ -26,12 +26,7 @@ class TagView(ViewSet):
     #    Handle GET requests to get all events
     #  Returns: Response -- JSON serialized list of events.
 
-        if request.auth.user.is_staff:
-            tags = Tag.objects.all()
-
-        else:
-            return Response({"error": "You are not authorized to be a party killer."}, status=status.HTTP_403_FORBIDDEN)   
-            
+        tags = Tag.objects.all()
 
         serialized = TagSerializer(tags, many=True)
         return Response(serialized.data, status=status.HTTP_200_OK)
