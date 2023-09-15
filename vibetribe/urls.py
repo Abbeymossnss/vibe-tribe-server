@@ -18,6 +18,7 @@ urlpatterns = [
     path('login', login_user),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('tags/',views.tags_view, name='tags'),
 ]
 
 # # Requests to http://localhost:8000/register will be routed to the register_user function

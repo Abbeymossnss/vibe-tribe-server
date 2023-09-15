@@ -54,7 +54,7 @@ def register_user(request):
         email=request.data['email'],
         first_name=request.data['first_name'],
         last_name=request.data['last_name'],
-        is_staff=request.data['is_staff']
+        is_staff=request.data.get('is_staff', False)
     )
 
     # Now save the extra info in the tribe_user table
