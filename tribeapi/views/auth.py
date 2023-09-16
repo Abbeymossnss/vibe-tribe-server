@@ -28,8 +28,10 @@ def login_user(request):
         token = Token.objects.get(user=authenticated_user)
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            'is_staff': authenticated_user.is_staff,  # Include the is_staff field in the response
         }
+        
         return Response(data)
     else:
         # Bad login details were provided. So we can't log the user in.
@@ -45,7 +47,7 @@ def register_user(request):
     Method arguments:
       request -- The full HTTP request object
     '''
-
+    is_staff = request.data.get('is_staff', False)
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
     new_user = User.objects.create_user(
@@ -54,7 +56,7 @@ def register_user(request):
         email=request.data['email'],
         first_name=request.data['first_name'],
         last_name=request.data['last_name'],
-        is_staff=request.data['is_staff']
+        is_staff=is_staff
     )
 
     # Now save the extra info in the tribe_user table

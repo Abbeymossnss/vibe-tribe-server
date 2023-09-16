@@ -20,20 +20,24 @@ class EventView(ViewSet):
     # return Response(serializer.data)
 
     def destroy(self, request, pk=None):
-        # handle delete requests for events
-        # authorize only users whos is_staff=false.
-        # return no response, with 204 status code.
+        # Handle delete requests for events
+        # Authorize only users who are not staff (is_staff=False) to delete their own events
+        # Return no response, with 204 status code.
 
-        # check if user is staff.
-        if request.auth.user.is_staff:
-            return Response({"error": "You are not authorized to be a party killer."}, status=status.HTTP_403_FORBIDDEN)
+        tribe_user_instance = TribeUser.objects.get(user=request.user)
 
-        # now delete the event! and return a 204 no response
-        event = Event.objects.get(pk=pk)
-        event.delete()
+        # Check if user is staff.
+        if not request.auth.user.is_staff:
+            # User is not a staff member, proceed to delete their event.
+            try:
+                event = Event.objects.get(pk=pk, host=tribe_user_instance)
+                event.delete()
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            except Event.DoesNotExist:
+                return Response({"error": "Event not found."}, status=status.HTTP_404_NOT_FOUND)
 
-        """Returns: Response:None. with 204 status code"""
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        return Response({"error": "You are not authorized to delete this event."}, status=status.HTTP_403_FORBIDDEN)
+
 
     def list(self, request):
         #    Handle GET requests to get all events
@@ -51,12 +55,20 @@ class EventView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk):
-        """Handle GET requests for single game type"""
-        event = Event.objects.get(pk=pk)
-        serializer = EventSerializer(event)
+    # Retrieve the event
+        try:
+            event = Event.objects.get(pk=pk)
+        except Event.DoesNotExist:
+            return Response({"error": "Event not found."}, status=status.HTTP_404_NOT_FOUND)
 
+        # Check if the requesting user is staff
+        if request.user.is_staff:
+            return Response({"error": "Staff members are not allowed to access this view."}, status=status.HTTP_403_FORBIDDEN)
+
+        # Serialize and return the event
+        serializer = EventSerializer(event)
         return Response(serializer.data)
-    
+        
     def create(self, request):
         # you'll need if statement to authorize only non staff members to be able to create a new event.
         # must create a tribeuser instance to compare to django user. apples to apples.
