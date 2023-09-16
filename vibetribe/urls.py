@@ -3,16 +3,16 @@ from django.conf.urls import include
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from tribeapi.views import EventView
+from tribeapi.views import EventView, TribeUserViewSet
 from tribeapi.views import TagView
 from tribeapi.views import register_user, login_user
 
 router = routers.DefaultRouter(trailing_slash=False)
+
+# Register TribeUserViewSet with a URL path
+router.register(r'tribe_users', TribeUserViewSet, basename='tribe_user')  # Specify 'basename'
 router.register(r'events', EventView, 'event')
 router.register(r'tags', TagView, 'tag')
-
-
-
 
 urlpatterns = [
     path('register', register_user),
@@ -20,9 +20,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
 ]
-
-# # Requests to http://localhost:8000/register will be routed to the register_user function
-# path('register', register_user)
-
-# # Requests to http://localhost:8000/login will be routed to the login_user function
-# path('login', login_user)
