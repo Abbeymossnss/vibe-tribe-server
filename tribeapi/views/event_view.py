@@ -55,12 +55,20 @@ class EventView(ViewSet):
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk):
-        """Handle GET requests for single game type"""
-        event = Event.objects.get(pk=pk)
-        serializer = EventSerializer(event)
+    # Retrieve the event
+        try:
+            event = Event.objects.get(pk=pk)
+        except Event.DoesNotExist:
+            return Response({"error": "Event not found."}, status=status.HTTP_404_NOT_FOUND)
 
+        # Check if the requesting user is staff
+        if request.user.is_staff:
+            return Response({"error": "Staff members are not allowed to access this view."}, status=status.HTTP_403_FORBIDDEN)
+
+        # Serialize and return the event
+        serializer = EventSerializer(event)
         return Response(serializer.data)
-    
+        
     def create(self, request):
         # you'll need if statement to authorize only non staff members to be able to create a new event.
         # must create a tribeuser instance to compare to django user. apples to apples.
