@@ -4,6 +4,7 @@ from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
 from tribeapi.views import EventView, TribeUserViewSet
+from tribeapi.views import TicketView, StatusView
 from tribeapi.views import TagView
 from tribeapi.views import register_user, login_user
 
@@ -13,6 +14,9 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'tribe_users', TribeUserViewSet, basename='tribe_user')  # Specify 'basename'
 router.register(r'events', EventView, 'event')
 router.register(r'tags', TagView, 'tag')
+router.register(r'tickets', TicketView, basename='ticket')
+# router.register(r'status', StatusView, 'status')
+
 
 urlpatterns = [
     path('register', register_user),
