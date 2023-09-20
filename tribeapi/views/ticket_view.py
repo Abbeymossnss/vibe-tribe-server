@@ -23,24 +23,14 @@ class TicketView(ViewSet):
         if not request.auth.user.is_staff:
             # User is not a staff member, proceed to delete their event.
             try:
-                ticket = HelpTicket.objects.get(pk=pk, host=tribe_user_instance)
+                ticket = HelpTicket.objects.get(
+                    pk=pk, host=tribe_user_instance)
                 ticket.delete()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             except Event.DoesNotExist:
                 return Response({"error": "Ticket not found."}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({"error": "You are not authorized to delete this ticket."}, status=status.HTTP_403_FORBIDDEN)
-
-
-
-
-
-
-
-
-
-
-
 
     def list(self, request):
 
@@ -64,24 +54,15 @@ class TicketView(ViewSet):
         # create a tribe user instance associated with requesting user.
         creator_instance = TribeUser.objects.get(user=request.user)
 
-# check if requesting user is staff/volunteer
+        # check if requesting user is staff/volunteer
         if request.user.is_staff:
             return Response({"error": "Be the problem SOLVER, not the problem starter."}, status=status.HTTP_403_FORBIDDEN)
-
-    #     # Define the fields that non-staff members are allowed to create
-    #     allowed_fields = ['title', 'issue', 'event']  # Add more fields as needed
-
-    # # Create a dictionary of request data containing only allowed fields
-    #     data = {field: request.data.get(field) for field in allowed_fields}
-
-    # # Add the creator field (assuming it's not allowed to be set by the user)
-    #     data['creator'] = creator_instance.id
 
         ticket = HelpTicket.objects.create(
             title=request.data["title"],
             issue=request.data["issue"],
             event=Event.objects.get(pk=request.data["event"]),
-            creator=creator_instance
+            creator=creator_instance,
         )
 
         serializer = TicketSerializer(ticket)
@@ -89,27 +70,25 @@ class TicketView(ViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-
         try:
             ticket = HelpTicket.objects.get(pk=pk)
         except HelpTicket.DoesNotExist:
             return Response({"error": "Help Ticket not found."}, status=status.HTTP_404_NOT_FOUND)
 
-# update fields based on the request data.
-        ticket.title = request.data.get("title", ticket.title)
-        ticket.issue = request.data.get("issue", ticket.issue)
+        if request.user.is_staff:
+            # Update volunteer and status fields for staff members
+            volunteer = TribeUser.objects.get(pk=request.data["volunteer"])
+            ticket.volunteer = volunteer
 
-        volunteer = TribeUser.objects.get(pk=request.data["volunteer"])
-        ticket.volunteer = volunteer
+            ticket_status = Status.objects.get(pk=request.data["status"])
+            ticket.status = ticket_status
+        else:
+            # Update title and issue fields for non-staff members
+            ticket.title = request.data.get("title", ticket.title)
+            ticket.issue = request.data.get("issue", ticket.issue)
 
-        ticket_status = Status.objects.get(pk=request.data["status"])
-        ticket.ticket_status = ticket_status
         ticket.save()
-
-        return Response(None, status=status.HTTP_200_OK)
-
-    
-
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class StatusSerializer(serializers.ModelSerializer):
@@ -131,7 +110,6 @@ class EventTicketSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
-
     creator = VibeTribeSerializer(many=False)
     volunteer = VibeTribeSerializer(many=False)
     status = StatusSerializer(many=False)
