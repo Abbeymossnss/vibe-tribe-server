@@ -15,7 +15,7 @@ router.register(r'tribe_users', TribeUserViewSet, basename='tribe_user')  # Spec
 router.register(r'events', EventView, 'event')
 router.register(r'tags', TagView, 'tag')
 router.register(r'tickets', TicketView, basename='ticket')
-# router.register(r'status', StatusView, 'status')
+router.register(r'status', StatusView, 'status')
 
 
 urlpatterns = [
