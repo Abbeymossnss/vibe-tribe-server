@@ -63,6 +63,7 @@ class TicketView(ViewSet):
             issue=request.data["issue"],
             event=Event.objects.get(pk=request.data["event"]),
             creator=creator_instance,
+            status=Status.objects.get(pk=request.data["status"]),
         )
 
         serializer = TicketSerializer(ticket)
@@ -86,6 +87,9 @@ class TicketView(ViewSet):
             # Update title and issue fields for non-staff members
             ticket.title = request.data.get("title", ticket.title)
             ticket.issue = request.data.get("issue", ticket.issue)
+
+            #  add if statement that says if the host is logged in and not staff they can only update their own tix
+
 
         ticket.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
