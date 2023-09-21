@@ -24,7 +24,7 @@ class TicketView(ViewSet):
             # User is not a staff member, proceed to delete their event.
             try:
                 ticket = HelpTicket.objects.get(
-                    pk=pk, host=tribe_user_instance)
+                    pk=pk, creator=tribe_user_instance)
                 ticket.delete()
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             except Event.DoesNotExist:
@@ -121,4 +121,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HelpTicket
-        fields = ('title', 'issue', 'creator', 'status', 'volunteer', 'event')
+        fields = ( 'id','title', 'issue', 'creator', 'status', 'volunteer', 'event')
