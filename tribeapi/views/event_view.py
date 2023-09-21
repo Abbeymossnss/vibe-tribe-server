@@ -42,13 +42,19 @@ class EventView(ViewSet):
     def list(self, request):
         #    Handle GET requests to get all events
         #  Returns: Response -- JSON serialized list of events.
-        tribe_user_instance= TribeUser.objects.get(user=request.user)
+        # tribe_user_instance= TribeUser.objects.get(user=request.user)
+
+        # event_to_filter_by = request.query_params.get('user')
+
+        # if event_to_filter_by:
+        #     events = Event.objects.filter(user=event_to_filter_by)
+            
 
         if request.auth.user.is_staff:
             events = Event.objects.all()
 
         else:
-            events = Event.objects.filter(host=tribe_user_instance)
+            events = Event.objects.filter(host=request.auth.user.id)
             
 
         serialized = EventSerializer(events, many=True)
